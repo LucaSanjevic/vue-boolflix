@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <main id="root">
+        <input type="text" v-model="textToSearch" @keyup.enter="doSearch">
+        <button @onclick="doSearch">Cerca</button>
+
+        <ul v-if="!loading">
+            <li v-for="film in moviesList.concat(seriesList)" @click="getCast(movie)">
+                <img src="getImg(film)" alt="">
+                <h2 v-if="film.seriesList">Serie TV</h2>
+                <p>{{film.name}}</p>
+                <p>{{film.titolo_riginale}}</p>
+                <p><span class="flag-icon" :class="'flag-icon-${getFlag(movie)}'"></span></p>
+                <p>
+                    <i class="fas fa-star" v-for="star in Math.round(movie.vote_average / 2)"></i>
+                </p>
+                <p class="cast" v-if="film.actors">
+                    <span v-for="actor in film.actors">{{actor.original_name}}</span>
+                </p>
+            </li>
+        </ul>
+    </main>
+
+</body>
+<script src="myScript.js"></script>
+</html>
