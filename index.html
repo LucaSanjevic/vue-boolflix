@@ -16,13 +16,14 @@
 
         <ul v-if="!loading">
             <li v-for="film in moviesList.concat(seriesList)" @click="getCast(movie)">
-                <img src="getImg(film)" alt="">
+                <img src="getImgSrc(film)" alt="">
                 <h2 v-if="film.seriesList">Serie TV</h2>
                 <p>{{film.name}}</p>
                 <p>{{film.titolo_riginale}}</p>
-                <p><span class="flag-icon" :class="'flag-icon-${getFlag(movie)}'"></span></p>
+                <p><span class="flag-icon" :class="'flag-icon-${getFlag(film)}'"></span></p>
                 <p>
-                    <i class="fas fa-star" v-for="star in Math.round(movie.vote_average / 2)"></i>
+                    <i class="fa-star" v-for="star in getMovieStars(film)" 
+                    :class="{'fas': star === true, 'far': star === false}"></i>
                 </p>
                 <p class="cast" v-if="film.actors">
                     <span v-for="actor in film.actors">{{actor.original_name}}</span>
